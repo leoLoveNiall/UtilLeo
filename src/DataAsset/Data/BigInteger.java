@@ -5,19 +5,6 @@ import DataAsset.ArrayUtil.ArrayUtil;
 import java.util.*;
 import java.util.stream.IntStream;
 
-enum Sign {
-    positive(1), negative(-1), undefined(0);
-    int value;
-
-    Sign(int i) {
-        value = i;
-    }
-
-    int getValue() {
-        return value;
-    }
-}
-
 /**
  * This class is designed to provide a way of large integer operation.
  * The maximum number of digits of a BigInteger is limited by int.
@@ -29,7 +16,8 @@ enum Sign {
 public class BigInteger {
     private Sign sign = Sign.undefined;
     private byte[] digit = null;
-    static Scanner in = new Scanner(System.in);
+    private boolean lockSign = false;
+    private boolean successfullyInitialized = false;
 
     /**
      * Generates a BigInteger object using an input string.
@@ -38,6 +26,7 @@ public class BigInteger {
      *              Rest of forms will not be allowed and causes an exception subsequently.
      */
     BigInteger(String input) {
+        input = filterInput(input);
         if (isLegit(input)) {
             byte[] byteArr = new byte[input.length() - 1];
             switch (input.charAt(0)) {
@@ -48,6 +37,7 @@ public class BigInteger {
                 byteArr[i] = Byte.parseByte(String.valueOf(input.charAt(i + 1)));
             }
             setDigit(byteArr);
+            successfullyInitialized = true;
         } else {
             System.out.println("Format error.");
         }
@@ -98,8 +88,8 @@ public class BigInteger {
      * Free to decide sign visibility.
      */
     public String toString(boolean showSign) {
-        StringBuilder str = null;
-        if (getDigit() != null) {
+        StringBuilder str = new StringBuilder("");
+        if (getDigit() != null&&successfullyInitialized) {
             if (showSign) {
                 switch (sign) {
                     case positive -> str = new StringBuilder("+");
@@ -108,12 +98,10 @@ public class BigInteger {
                 }
             }
             for (var c : getDigit()) {
-                assert str != null;
                 str.append(c);
             }
             return String.valueOf(str);
-        }
-        return "Num has not been initialized.";
+        }else return "Num has not been initialized.";
 
     }
 
@@ -131,9 +119,19 @@ public class BigInteger {
         if (Arrays.equals(digit, new byte[]{0})) this.sign = Sign.positive;
         this.digit = digit;
     }
+    /**
+     * Sign lock identifier.
+     */
+    public void setLockSign(boolean lockSign) {
+        this.lockSign = lockSign;
+    }
 
     public void setSign(Sign sign) {
-        this.sign = sign;
+        if (lockSign) {
+            //throw  new SignUneditableException();
+        } else {
+            this.sign = sign;
+        }
     }
 
     private int getDigitLength() {
@@ -259,18 +257,18 @@ public class BigInteger {
      *
      * @return "+(\str)" or "(\str)"
      */
-    private static String filteredScan() {
-        var str = in.next();
+    private static String filterInput(String str) {
         if (Character.isDigit(str.charAt(0))) return "+" + str;
         else return str;
     }
 
 
     public static void main(String[] args) {
+        var in = new Scanner(System.in);
 
         while (true) {
-            var b1 = new BigInteger(filteredScan());
-            var b2 = new BigInteger(filteredScan());
+            var b1 = new BigInteger(in.next());
+            var b2 = new BigInteger(in.next());
             System.out.println("  Sum  :" + Calculate.add(b1, b2));
             System.out.println("Product:" + Calculate.multiply(b1, b2));
         }
@@ -283,6 +281,20 @@ class SignUndefinedException extends Exception {
     }
 
     public SignUndefinedException(String message) {
+        super(message);
+    }
+
+    @Override
+    public String toString() {
+        return "SignUndefinedException";
+    }
+}
+
+class SignUneditableException extends Exception {
+    public SignUneditableException() {
+    }
+
+    public SignUneditableException(String message) {
         super(message);
     }
 
