@@ -1,7 +1,7 @@
 package DataAsset.Data;
 
 enum Sign {
-    positive(1), negative(-1), undefined(0);
+    positive(1), negative(-1), unsigned(1);
     int value;
 
     Sign(int i) {

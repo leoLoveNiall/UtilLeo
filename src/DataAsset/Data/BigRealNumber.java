@@ -3,7 +3,6 @@ package DataAsset.Data;
 import DataAsset.Extend.StringExtend;
 
 import java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
 
 public class BigRealNumber {
     private Sign sign;
@@ -22,9 +21,9 @@ public class BigRealNumber {
             }
             integer = new BigInteger(split[0]);
             decimal = new BigInteger(split[1]);
-            integer.setSign(Sign.undefined);
+            integer.setSign(Sign.unsigned);
             integer.setLockSign(true);
-            decimal.setSign(Sign.undefined);
+            decimal.setSign(Sign.unsigned);
             decimal.setLockSign(true);
             successfullyInitialized = true;
         } catch (Exception e) {
@@ -43,7 +42,7 @@ public class BigRealNumber {
                 switch (sign) {
                     case positive -> s = "+";
                     case negative -> s = "-";
-                    case undefined -> s = "?";
+                    case unsigned -> s = "";
                 }
             } else s = "";
             s += integer.toString(false) + "." + decimal.toString(false);

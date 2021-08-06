@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  * 0 is a positive integer by default and will be corrected during minus calculation.
  */
 public class BigInteger {
-    private Sign sign = Sign.undefined;
+    private Sign sign = Sign.unsigned;
     private byte[] digit = null;
     private boolean lockSign = false;
     private boolean successfullyInitialized = false;
@@ -46,6 +46,7 @@ public class BigInteger {
     public BigInteger(Sign sign, byte[] digit) {
         this.sign = sign;
         setDigit(digit);
+        successfullyInitialized = true;
     }
 
 
@@ -88,13 +89,13 @@ public class BigInteger {
      * Free to decide sign visibility.
      */
     public String toString(boolean showSign) {
-        StringBuilder str = new StringBuilder("");
+        StringBuilder str = new StringBuilder();
         if (getDigit() != null&&successfullyInitialized) {
             if (showSign) {
                 switch (sign) {
                     case positive -> str = new StringBuilder("+");
                     case negative -> str = new StringBuilder("-");
-                    case undefined -> str = new StringBuilder("?");
+                    case unsigned -> str = new StringBuilder("u");
                 }
             }
             for (var c : getDigit()) {
@@ -224,7 +225,7 @@ public class BigInteger {
             var num1ReversedArr = reverse(num1.getDigit());
             var num2ReversedArr = reverse(num2.getDigit());
             for (int i = 0; i < num1BasedProductArr.length; i++) {
-                var newBigInteger = new BigInteger(Sign.undefined, new byte[0]);
+                var newBigInteger = new BigInteger(Sign.unsigned, new byte[0]);
                 newBigInteger.digit = new byte[num2.getDigitLength() * num1.getDigitLength() + 1];
                 //If next digit should carry more
                 byte carry = 0;
