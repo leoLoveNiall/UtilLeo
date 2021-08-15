@@ -1,6 +1,6 @@
 package DataAsset.Data;
 
-import DataAsset.ArrayUtil.ArrayUtil;
+import DataAsset.Extend.ArrayExtend;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -156,7 +156,7 @@ public class BigInteger {
      * @return Reversed array.
      */
     private static byte[] reverse(byte[] array) {
-        return ArrayUtil.reverse(array);
+        return ArrayExtend.reverse(array);
 
     }
 
