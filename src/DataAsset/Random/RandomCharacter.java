@@ -14,15 +14,12 @@ public class RandomCharacter {
     }
 
     public static char getRandSignChar() {
-        return getRandChar("!@%^&*?");
+        return getRandChar("@$!%*#_~?&^");
     }
 
-    public static char getRandChar(String s){
-        char[] sign = s.toCharArray();
+    public static char getRandChar(String s) {
+        var sign = s.toCharArray();
         return sign[RandomNumber.getRandomInt(0, sign.length)];
     }
 
-    public static void main(String[] args) {
-        System.out.println(getRandChar("asfEasrgfrvAaESRFa"));
-    }
 }

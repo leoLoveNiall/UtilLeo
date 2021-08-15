@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class RandomNumber {
     public static int getRandomInt(int from, int to) {
-        int range = to - from;
-        int size = (int) (Math.pow(10, NumberExtend.getDigit(range) + 3) * Math.random());
-        int result = size % range + from;
+        var range = to - from;
+        var size = (int) (Math.pow(10, NumberExtend.getDigit(range) + 3) * Math.random());
+        var result = size % range + from;
         if (result > to || result < from) try {
             throw new InputFormatUnfitException();
         } catch (InputFormatUnfitException e) {
@@ -19,15 +19,15 @@ public class RandomNumber {
     }
 
     public static int getRandomInt(int from1, int to1, int from2, int to2) {
-        int range = to1 - from1 + to2 - from2;
-        int rand = getRandomInt(0, range);
+        var range = to1 - from1 + to2 - from2;
+        var rand = getRandomInt(0, range);
         if (rand < to1 - from1) return getRandomInt(from1, to1);
         else return getRandomInt(from2, to2);
     }
 
     public static int[] getRandomIntArray(int from, int to, int amount) {
         var arr = new int[amount];
-        for (int i = 0; i < amount; i++) {
+        for (var i = 0; i < amount; i++) {
             arr[i] = getRandomInt(from, to);
         }
         return arr;

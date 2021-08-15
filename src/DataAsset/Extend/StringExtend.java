@@ -7,4 +7,7 @@ public class StringExtend {
         }
         return false;
     }
+    public static String removeNewLine(String str){
+        return str.replaceAll("\n","");
+    }
 }
