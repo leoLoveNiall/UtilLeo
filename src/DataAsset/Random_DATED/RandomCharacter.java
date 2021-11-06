@@ -1,4 +1,4 @@
-package DataAsset.Random;
+package DataAsset.Random_DATED;
 
 public class RandomCharacter {
     public static char getRandNumChar() {

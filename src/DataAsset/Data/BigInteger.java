@@ -1,6 +1,7 @@
 package DataAsset.Data;
 
 import DataAsset.Extend.ArrayExtend;
+import DataAsset.Extend.StringExtend;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -90,7 +91,7 @@ public class BigInteger {
      */
     public String toString(boolean showSign) {
         StringBuilder str = new StringBuilder();
-        if (getDigit() != null&&successfullyInitialized) {
+        if (getDigit() != null && successfullyInitialized) {
             if (showSign) {
                 switch (sign) {
                     case positive -> str = new StringBuilder("+");
@@ -102,12 +103,19 @@ public class BigInteger {
                 str.append(c);
             }
             return String.valueOf(str);
-        }else return "Num has not been initialized.";
+        } else return "Num has not been initialized.";
 
     }
 
     public String toString() {
         return toString(true);
+    }
+
+    /**
+     * Return absolute scientific notation as string
+     */
+    public String toAbsScientificNotationString() {
+        return String.valueOf(getDigit()[0]) + "." + String.valueOf(getDigit()[1]) + "e" + (getDigit().length - 1);
     }
 
 
@@ -120,6 +128,7 @@ public class BigInteger {
         if (Arrays.equals(digit, new byte[]{0})) this.sign = Sign.positive;
         this.digit = digit;
     }
+
     /**
      * Sign lock identifier.
      */
@@ -251,6 +260,26 @@ public class BigInteger {
 
             return sumBigInteger;
         }
+
+        /**
+         * @param b give a biginteger to calculate
+         * @param p limit power under int.max_value
+         * @return answer
+         */
+        public static BigInteger powerByInt(BigInteger b, int p) {
+
+            if (p < 0) {
+                var res = new BigInteger("0");
+                res.successfullyInitialized = false;
+                return res;
+            }
+            if (p == 0) return new BigInteger("0");
+            var res = new BigInteger(b.toString());//水平有限，暂不使用深拷贝功能
+            for (int i = 0; i < p - 1; i++) {
+                res = multiply(res, b);
+            }
+            return res;
+        }
     }
 
     /**
@@ -265,13 +294,12 @@ public class BigInteger {
 
 
     public static void main(String[] args) {
-        var in = new Scanner(System.in);
-
-        while (true) {
-            var b1 = new BigInteger(in.next());
-            var b2 = new BigInteger(in.next());
-            System.out.println("  Sum  :" + Calculate.add(b1, b2));
-            System.out.println("Product:" + Calculate.multiply(b1, b2));
+        var in = "123456";
+        for (int i = 500; i < 5000; i+=10) {
+            long b = System.currentTimeMillis();
+            var bi = Calculate.powerByInt(new BigInteger(in), i);
+            System.out.println(bi.toString());
+            System.out.println("计算" + in + "^" + i + ", 耗时" +(System.currentTimeMillis()-b) + "ms,结果共计" + bi.getDigitLength() + "位");
         }
     }
 

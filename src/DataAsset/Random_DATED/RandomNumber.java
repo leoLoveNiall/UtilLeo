@@ -1,9 +1,6 @@
-package DataAsset.Random;
+package DataAsset.Random_DATED;
 
-import DataAsset.Extend.MathExtend;
 import DataAsset.Extend.NumberExtend;
-
-import java.util.Arrays;
 
 public class RandomNumber {
     public static int getRandomInt(int from, int to) {
