@@ -36,8 +36,33 @@ public class Formatter {
 
             }
         }
-
     }
 
-
+    /**
+     * E.g: Transform from: 1. 贫穷的：poor 2. 引起：engender3. 解决：deal with
+     * To:               1. 贫穷的：poor
+     * 2. 引起：engender
+     * 3. 解决：deal with
+     */
+    public static void addCarriageReturnBeforeAnyDigit(ArrayList<String> data) {
+        for (int i = 0; i < data.size(); i++) {
+            char[] str = data.get(i).toCharArray();
+            ArrayList<Character> str_al = new ArrayList<>();
+            boolean lastOneIsDigit = false;
+            for (char c : str) {
+                if (Character.isDigit(c) && !lastOneIsDigit) {
+                    str_al.add('\n');
+                    lastOneIsDigit = true;
+                } else {
+                    lastOneIsDigit = false;
+                }
+                str_al.add(c);
+            }
+            char[] str_arr = new char[str_al.size()];
+            for (int j = 0; j < str_arr.length; j++) {
+                str_arr[j] = str_al.get(j);
+            }
+            data.set(i, new String(str_arr));
+        }
+    }
 }
