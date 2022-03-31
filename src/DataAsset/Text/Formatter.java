@@ -40,7 +40,7 @@ public class Formatter {
 
     /**
      * E.g: Transform from: 1. 贫穷的：poor 2. 引起：engender3. 解决：deal with
-     * To:               1. 贫穷的：poor
+     * To:1. 贫穷的：poor
      * 2. 引起：engender
      * 3. 解决：deal with
      */
@@ -49,14 +49,13 @@ public class Formatter {
             char[] str = data.get(i).toCharArray();
             ArrayList<Character> str_al = new ArrayList<>();
             boolean lastOneIsDigit = false;
-            for (char c : str) {
-                if (Character.isDigit(c) && !lastOneIsDigit) {
-                    str_al.add('\n');
-                    lastOneIsDigit = true;
-                } else {
-                    lastOneIsDigit = false;
+            str_al.add(str[0]);
+            for (int j = 1; j < str.length; j++) {
+                lastOneIsDigit = Character.isDigit(str[j-1]);
+                if (Character.isDigit(str[j]) && !lastOneIsDigit) {
+                        str_al.add('\n');
                 }
-                str_al.add(c);
+                str_al.add(str[j]);
             }
             char[] str_arr = new char[str_al.size()];
             for (int j = 0; j < str_arr.length; j++) {
