@@ -1,7 +1,7 @@
-package DataAsset.Extend;
+package DataAsset.Extended;
 
 
-public class NumberExtend {
+public class ExtendedNumber {
     public static int getDigit(int num) {
         num = Math.abs(num);
         if (num == 0) return 1;

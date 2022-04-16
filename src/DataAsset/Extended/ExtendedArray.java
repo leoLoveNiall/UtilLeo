@@ -1,4 +1,4 @@
-package DataAsset.Extend;
+package DataAsset.Extended;
 
 import java.util.Arrays;
 
@@ -6,7 +6,7 @@ import java.util.Arrays;
  * This class is designed to offer efficient methods that helps programmer streamline codes.
  * All methods are static, and you need not to instantiate ArrayUtil.
  */
-public class ArrayExtend {
+public class ExtendedArray {
     public static Object[] reverse(Object[] array) {
         for (int i = 0; i < array.length / 2; i++) {
             Object tmp = array[i];

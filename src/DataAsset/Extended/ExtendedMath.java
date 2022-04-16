@@ -1,8 +1,8 @@
-package DataAsset.Extend;
+package DataAsset.Extended;
 
 import java.util.Arrays;
 
-public class MathExtend {
+public class ExtendedMath {
 
     public static double getAverage(int[] arr) {
         return Arrays.stream(arr).asDoubleStream().sum() / arr.length;

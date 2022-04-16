@@ -1,6 +1,6 @@
-package DataAsset.Extend;
+package DataAsset.Extended;
 
-public class StringExtend {
+public class ExtendedString {
     public static boolean hasChar(String str, char c) {
         for (var cc : str.toCharArray()) {
             if (c == cc) return true;

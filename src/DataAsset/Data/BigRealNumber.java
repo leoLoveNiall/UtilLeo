@@ -1,6 +1,6 @@
 package DataAsset.Data;
 
-import DataAsset.Extend.StringExtend;
+import DataAsset.Extended.ExtendedString;
 
 import java.util.Scanner;
 
@@ -62,7 +62,7 @@ public class BigRealNumber {
      */
     private static String filteredScan(String str) {
         if (Character.isDigit(str.charAt(0))) str = "+" + str;
-        if (!StringExtend.hasChar(str, '.')) str += ".0";
+        if (!ExtendedString.hasChar(str, '.')) str += ".0";
         return str;
     }
 
