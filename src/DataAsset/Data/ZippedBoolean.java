@@ -5,7 +5,7 @@ import org.apache.lucene.util.RamUsageEstimator;
 import java.util.Arrays;
 
 /**
- * Since the exact size of boolean is machine dependent(may occupy from 1 bit 4 bytes),
+ * Since the exact size of boolean is machine dependent(may occupy space from 1 to bit 4 bytes),
  * this class has provided an embedded class to store 8 boolean into a single variable.
  */
 
