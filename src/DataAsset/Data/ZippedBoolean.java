@@ -3,7 +3,6 @@ package DataAsset.Data;
 import org.apache.lucene.util.RamUsageEstimator;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * Since the exact size of boolean is machine dependent(may occupy from 1 bit 4 bytes),
@@ -12,10 +11,9 @@ import java.util.stream.IntStream;
 
 public class ZippedBoolean {
     // Boolean variables are stored as bits using little endian.
-    // while the explicit form is big is big endian
+    // while the explicit form is big endian
     private byte data = (byte) 0x00;
-
-
+    
     ZippedBoolean(boolean[] booleans) {
         for (int i = 0; i < 8; i++) {
             setBooleanAt(booleans[i], i);
