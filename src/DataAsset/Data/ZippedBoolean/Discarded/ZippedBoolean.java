@@ -1,4 +1,4 @@
-package DataAsset.Data.ZippedBoolean;
+package DataAsset.Data.ZippedBoolean.Discarded;
 
 import java.util.Arrays;
 
@@ -39,20 +39,22 @@ public class ZippedBoolean {
 
     protected void setBooleanAt(boolean b, int i) {
         //suppose to verify i here
-        //generate contrary binary code
+        //generate ones-complement code
         if (b) {
             //true
-            byte opp = (byte) (0x01L << i);
-            this.data |= opp;
+            this.data |= (0x01L << i);
         } else {
             //false
-            byte opp = (byte) ~(0x01L << i);
-            this.data &= opp;
+            this.data &= ~(0x01L << i);
         }
     }
+    //Machine dependent test:
+    //runtime: 90+22MB
+    //array: 98+60MB
+    //zipped_boolean: 99+652MB
 
     protected boolean[] getBooleanArray() {
-        boolean[] b = new boolean[8];
+        boolean[] b = new boolean[META_LEN];
         for (int i = 0; i < META_LEN; i++) {
             b[i] = getBooleanAt(i);
         }
