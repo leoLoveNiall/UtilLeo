@@ -5,19 +5,19 @@ import java.util.Scanner;
 
 /**
  * Finally I worked this out...
- *
+ * <p>
  * Re:
- *
+ * <p>
  * Since the exact size of boolean is machine dependent(may occupy space from 1 bit to 4 bytes),
- * this class has provided an embedded class to store META_LEN boolean into a single variable.
- *
- * On ny MacBook working with macOS 12 and openjdk 16, the test result is:
- *
- *   | Original | Compressed |
- *   | 420 MB   | 69.7 MB    |
- *   | 59.7 MB  | 25.6 MB    |
- *
- * Kinda trilling!
+ * this class has developed an embedded way to store META_LEN boolean into a single variable.
+ * <p>
+ * On my MacBook(Intel x64) working with macOS 12 and openjdk 16, the test result is:
+ * <p>
+ * | Original | Compressed |
+ * | 420 MB   | 69.7 MB    |
+ * | 59.7 MB  | 25.6 MB    |
+ * <p>
+ * Kinda dope!
  */
 public class CompressedBooleanArray {
     private long[] data;
@@ -43,11 +43,11 @@ public class CompressedBooleanArray {
     }
 
     private long getInnerLongValue(int index) {
-        return data[index / META_LEN];
+        return this.data[index / META_LEN];
     }
 
     private void setInnerLongValue(long value, int index) {
-        data[index / META_LEN] = value;
+        this.data[index / META_LEN] = value;
     }
 
     public boolean getBooleanAt(int index) {
@@ -55,13 +55,18 @@ public class CompressedBooleanArray {
     }
 
     public void setBooleanAt(boolean b, int index) {
-        if (b) {
-            //true
-            setInnerLongValue(getInnerLongValue(index) | (0x01L << (index % META_LEN)), index);
+        if (index >= 0 && index < length) {
+            if (b) {
+                //true
+                setInnerLongValue(getInnerLongValue(index) | (0x01L << (index % META_LEN)), index);
+            } else {
+                //false
+                setInnerLongValue(getInnerLongValue(index) & ~(0x01L << index % META_LEN), index);
+            }
         } else {
-            //false
-            setInnerLongValue(getInnerLongValue(index) & ~(0x01L << index % META_LEN), index);
+            throw new IndexOutOfBoundsException();
         }
+
     }
 
     protected void outputBinaryString() {
@@ -80,12 +85,15 @@ class Test1 {
         c.outputBinaryString();
         c.setBooleanAt(true, 5);
         c.outputBinaryString();
+        c.setBooleanAt(true, 31);
+        c.outputBinaryString();
+        c.setBooleanAt(true, 32);
     }
 }
 
 class Test2 {
     public static void main(String[] args) {
-        int range = 64000 * 6400;
+        int range = 6400 * 6400;
         Random r = new Random();
         //method1
         CompressedBooleanArray c = new CompressedBooleanArray(range);
@@ -93,10 +101,10 @@ class Test2 {
             c.setBooleanAt(r.nextBoolean(), i);
         }
         //method2
-        boolean[] b = new boolean[range];
-        for (int i = 0; i < range; i++) {
-            b[i] = r.nextBoolean();
-        }
+//        boolean[] b = new boolean[range];
+//        for (int i = 0; i < range; i++) {
+//            b[i] = r.nextBoolean();
+//        }
         //pause
         Scanner scanner = new Scanner(System.in);
         scanner.nextInt();
