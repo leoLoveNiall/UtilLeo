@@ -1,8 +1,6 @@
 package DataAsset.Text.MarkdownFormatter;
 
-import DataAsset.Text.Formatter;
-
-import java.util.Scanner;
+import DataAsset.Text.TextFormatter.Formatter;
 
 public class Main {
     public static void transformToH1Title() {

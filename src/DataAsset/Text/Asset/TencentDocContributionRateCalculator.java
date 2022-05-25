@@ -1,6 +1,6 @@
 package DataAsset.Text.Asset;
 
-import DataAsset.Text.Formatter;
+import DataAsset.Text.TextFormatter.Formatter;
 import java.util.HashMap;
 public class TencentDocContributionRateCalculator {
     public static void main(String[] args) {

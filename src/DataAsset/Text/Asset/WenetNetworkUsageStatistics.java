@@ -1,6 +1,6 @@
 package DataAsset.Text.Asset;
 
-import DataAsset.Text.Formatter;
+import DataAsset.Text.TextFormatter.Formatter;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class WenetNetworkUsageStatistics {
         double max = 0;
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).contains("流量")) {
-                double value = Double.parseDouble(data.get(i).replaceAll("[^0-9\\.]", ""));
+                double value = Double.parseDouble(data.get(i).replaceAll("[^0-9.]", ""));
                 sum += value;
                 max = Math.max(max, value);
             } else {

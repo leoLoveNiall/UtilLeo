@@ -1,6 +1,6 @@
 package DataAsset.Text.Asset;
 
-import DataAsset.Text.Formatter;
+import DataAsset.Text.TextFormatter.Formatter;
 
 import java.util.ArrayList;
 
@@ -9,11 +9,11 @@ public class JSONFormatter {
      * eg
      * 1.       Pragma : no-cache
      * 2.       "Pragma": "no-cache"
-     * @param data
+     * @param data A list of target strings.
      */
     public static void addQuotationMarkByColon(ArrayList<String> data) {
         for (int i = 0; i < data.size(); i++) {
-            ArrayList<Character> s = new ArrayList<Character>();
+            ArrayList<Character> s = new ArrayList<>();
             for (char c : data.get(i).toCharArray()) {
                 s.add(c);
             }
@@ -30,7 +30,6 @@ public class JSONFormatter {
                         }else break;
                     }
                     s.add(j + 2, '"');
-
                     found = true;
                     break;
                 }
