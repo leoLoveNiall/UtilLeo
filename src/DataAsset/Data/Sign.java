@@ -1,6 +1,6 @@
 package DataAsset.Data;
 
-enum Sign {
+public enum Sign {
     positive(1), negative(-1), unsigned(1);
     int value;
 

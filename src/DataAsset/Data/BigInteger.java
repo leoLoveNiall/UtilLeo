@@ -25,7 +25,7 @@ public class BigInteger {
      * @param input The input string should be like: ±1234,±001234, ±00, ±0.
      *              Rest of forms will not be allowed and causes an exception subsequently.
      */
-    BigInteger(String input) {
+    public BigInteger(String input) {
         input = filterInput(input);
         if (isLegit(input)) {
             byte[] byteArr = new byte[input.length() - 1];
